@@ -1,5 +1,6 @@
 const express = require('express');
 const puppeteer = require('puppeteer');
+const fs = require('fs');
 
 const app = express();
 app.use(express.json());
@@ -15,16 +16,11 @@ app.post('/scrape', async (req, res) => {
   try {
     const page = await browser.newPage();
 
-    // LOGIN NO LINKEDIN
-    await page.goto('https://www.linkedin.com/login', { waitUntil: 'networkidle2' });
-    await page.type('#username', process.env.LINKEDIN_EMAIL);
-    await page.type('#password', process.env.LINKEDIN_PASSWORD);
-    await Promise.all([
-      page.click('[type="submit"]'),
-      page.waitForNavigation({ waitUntil: 'networkidle2' })
-    ]);
+    // Aplica cookies de sessão do LinkedIn
+    const cookies = JSON.parse(fs.readFileSync('./cookies.json', 'utf8'));
+    await page.setCookie(...cookies);
 
-    // ACESSA A PÁGINA DE BUSCA
+    // Acessa a página de busca
     await page.goto(searchUrl, { waitUntil: 'networkidle2' });
     await page.waitForSelector('.entity-result__content', { timeout: 30000 });
 
@@ -50,4 +46,3 @@ app.post('/scrape', async (req, res) => {
 });
 
 app.listen(5000, '0.0.0.0', () => console.log('Scraper rodando na porta 5000'));
-//app.listen(3000, () => console.log('Scraper rodando na porta 3000'));
