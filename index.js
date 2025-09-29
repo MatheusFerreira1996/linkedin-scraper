@@ -31,4 +31,5 @@ app.post('/scrape', async (req, res) => {
   res.json(leads);
 });
 
-app.listen(3000, () => console.log('Scraper rodando na porta 3000'));
+app.listen(5000, '0.0.0.0', () => console.log('Scraper rodando na porta 5000'));
+//app.listen(3000, () => console.log('Scraper rodando na porta 3000'));
