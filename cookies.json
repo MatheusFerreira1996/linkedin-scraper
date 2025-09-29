@@ -1,0 +1,26 @@
+[
+  {
+    "name": "li_at",
+    "value": "jIffZcvZrcu4q.zCuZdz9B4PvEyADLiUR5MbCSjsPzA-1759120396-1.0.1.1-wScg6r.I2Gp41gdQpRylMCRlTuc451WdC34BMiCvtv1um9._CCcxAt3AGQBHGVdQyfkW5XMG7DFxdtMi8xzrHiwjoV0NB8ChFhNVeTaX0qA",
+    "domain": ".linkedin.com",
+    "path": "/",
+    "httpOnly": true,
+    "secure": true
+  },
+  {
+    "name": "bcookie",
+    "value": "v=2&2a173f0e-fb82-443a-8a6f-4b8edb2e126e",
+    "domain": ".linkedin.com",
+    "path": "/",
+    "httpOnly": true,
+    "secure": true
+  },
+  {
+    "name": "bscookie",
+    "value": "v=1&202304111825229a4f0288-a5f1-4622-8d9d-7efd9ad03e4bAQHiu6VOJkhc73JA-NK3U00niqfFmS7-",
+    "domain": ".www.linkedin.com",
+    "path": "/",
+    "httpOnly": true,
+    "secure": true
+  }
+]
