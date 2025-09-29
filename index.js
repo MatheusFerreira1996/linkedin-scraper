@@ -20,6 +20,16 @@ app.post('/scrape', async (req, res) => {
     const cookies = JSON.parse(fs.readFileSync('./cookies.json', 'utf8'));
     await page.setCookie(...cookies);
 
+    // Verifica se a sessão está ativa
+    await page.goto('https://www.linkedin.com/feed', { waitUntil: 'networkidle2' });
+    const isLoggedIn = await page.evaluate(() => {
+      return !!document.querySelector('[data-test-global-nav-link="mynetwork"]');
+    });
+
+    if (!isLoggedIn) {
+      throw new Error('Sessão inválida: cookies não mantiveram login');
+    }
+
     // Acessa a página de busca
     await page.goto(searchUrl, { waitUntil: 'networkidle2' });
     await page.waitForSelector('.entity-result__content', { timeout: 30000 });
