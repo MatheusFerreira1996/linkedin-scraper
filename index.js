@@ -14,8 +14,18 @@ app.post('/scrape', async (req, res) => {
 
   try {
     const page = await browser.newPage();
-    await page.goto(searchUrl, { waitUntil: 'networkidle2' });
 
+    // LOGIN NO LINKEDIN
+    await page.goto('https://www.linkedin.com/login', { waitUntil: 'networkidle2' });
+    await page.type('#username', process.env.LINKEDIN_EMAIL);
+    await page.type('#password', process.env.LINKEDIN_PASSWORD);
+    await Promise.all([
+      page.click('[type="submit"]'),
+      page.waitForNavigation({ waitUntil: 'networkidle2' })
+    ]);
+
+    // ACESSA A PÁGINA DE BUSCA
+    await page.goto(searchUrl, { waitUntil: 'networkidle2' });
     await page.waitForSelector('.entity-result__content', { timeout: 30000 });
 
     const leads = await page.evaluate(() => {
